@@ -1,6 +1,7 @@
 ﻿using codePulse.AI.Data;
 using codePulse.AI.Models.Domain;
 using codePulse.API.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace codePulse.API.Repositories.Implementation
 {
@@ -16,6 +17,10 @@ namespace codePulse.API.Repositories.Implementation
             await dbContext.Categories.AddAsync(category);
             await dbContext.SaveChangesAsync();
             return category;
+        }
+        public async Task<IEnumerable<Category>> GetAllAsync()
+        {
+            return await dbContext.Categories.ToListAsync();
         }
     }
 }
