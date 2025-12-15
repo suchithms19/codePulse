@@ -1,12 +1,15 @@
 using System;
 using System.IO;
 using codePulse.AI.Data;
+using codePulse.API.Repositories.Implementation;
+using codePulse.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 // Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
