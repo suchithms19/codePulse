@@ -8,7 +8,7 @@ namespace codePulse.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class BlogPostsController : Controller
-    {   
+    {
         private readonly IBlogPostRepository blogPostRepository;
         public BlogPostsController(IBlogPostRepository blogPostRepository)
         {
@@ -35,7 +35,7 @@ namespace codePulse.API.Controllers
 
             var response = new BlogPostDto
             {
-                Id= blogPost.Id,
+                Id = blogPost.Id,
                 Author = request.Author,
                 Content = request.Content,
                 FeaturedImageUrl = request.FeaturedImageUrl,
@@ -47,6 +47,25 @@ namespace codePulse.API.Controllers
             };
             return Ok(response);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllBlogPosts()
+        {
+            var blogPosts = await blogPostRepository.GetAllAsync();
+            var response = blogPosts.Select(blogPost => new BlogPostDto
+            {
+                Id = blogPost.Id,
+                Author = blogPost.Author,
+                Content = blogPost.Content,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                PublishedDate = blogPost.PublishedDate,
+                ShortDescription = blogPost.ShortDescription,
+                Title = blogPost.Title,
+                UrlHandle = blogPost.UrlHandle
+            });
+            return Ok(response);
         }
     }
 }
