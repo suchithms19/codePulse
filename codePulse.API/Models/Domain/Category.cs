@@ -7,7 +7,7 @@ namespace codePulse.AI.Models.Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string UrlHandle { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public ICollection<BlogPost> BlogPosts { get; set; }
     }
 }   
 
