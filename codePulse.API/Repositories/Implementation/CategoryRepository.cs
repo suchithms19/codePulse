@@ -18,9 +18,17 @@ namespace codePulse.API.Repositories.Implementation
             await dbContext.SaveChangesAsync();
             return category;
         }
-        public async Task<IEnumerable<Category>> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAllAsync(string? query=null)
         {
-            return await dbContext.Categories.ToListAsync();
+            var categories = dbContext.Categories.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                categories = categories.Where(c => c.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
+            }
+
+
+            return await categories.ToListAsync();
         }
 
         public async Task<Category?> GetCategoryAsync(Guid id)
