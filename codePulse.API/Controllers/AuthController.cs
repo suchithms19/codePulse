@@ -43,8 +43,15 @@ namespace codePulse.API.Controllers
                     {
                         Email = request.Email,
                         Roles = roles.ToList(),
-                        Token = jwtToken
                     };
+
+                    Response.Cookies.Append("jwtToken", jwtToken, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Lax,
+                        Expires = DateTimeOffset.UtcNow.AddHours(1)
+                    });
 
                     return Ok(response);
                 }
