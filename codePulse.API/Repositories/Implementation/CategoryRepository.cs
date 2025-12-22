@@ -18,13 +18,32 @@ namespace codePulse.API.Repositories.Implementation
             await dbContext.SaveChangesAsync();
             return category;
         }
-        public async Task<IEnumerable<Category>> GetAllAsync(string? query=null)
+        public async Task<IEnumerable<Category>> GetAllAsync(string? query=null,
+                string? sortBy=null,
+                string? sortDirection=null)
         {
             var categories = dbContext.Categories.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(query))
             {
                 categories = categories.Where(c => c.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(sortBy))
+            {
+                if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isAsc = string.Equals(sortDirection,"asc", StringComparison.OrdinalIgnoreCase) ? true : false;
+
+                    categories = isAsc ? categories.OrderBy(x=>x.Name): categories.OrderByDescending(x=>x.Name);
+                }
+
+                if (sortBy.Equals("URL", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isAsc = string.Equals(sortDirection, "asc", StringComparison.OrdinalIgnoreCase) ? true : false;
+
+                    categories = isAsc ? categories.OrderBy(x => x.UrlHandle) : categories.OrderByDescending(x => x.UrlHandle);
+                }
             }
 
 
