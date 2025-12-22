@@ -50,7 +50,10 @@ namespace codePulse.API.Data
                 NormalizedEmail = "admin@codepulse.com".ToUpper(),
                 NormalizedUserName = "admin@codepulse.com".ToUpper()
             };
-            admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "Admin@123");
+
+            admin.PasswordHash = "AQAAAAIAAYagAAAAEFcJm2OuTfYKkP3XMkb7gr6UjgZWn4h87xfPDaOMUZs8IIlYw2QIjkh8vVzyMnrFpQ==";
+            admin.ConcurrencyStamp = "d5b938a1-babf-40f2-9b04-4d74d6431194";
+            admin.SecurityStamp = "7d3dcde5-e9ee-4bf6-994e-914d1ff33b4a";
 
             //seed the admin user
             builder.Entity<IdentityUser>().HasData(admin);
