@@ -131,5 +131,24 @@ namespace codePulse.API.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("logout")]
+        public IActionResult Logout()
+        {
+            // Overwrite and expire the JWT cookie
+            Response.Cookies.Append(
+                "access_token",
+                "",
+                new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Lax,
+                    Expires = DateTime.UtcNow.AddDays(-1)
+                });
+
+            return Ok();
+        }
+
     }
 }
