@@ -48,7 +48,9 @@ namespace codePulse.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCategories([FromQuery] string? query, 
             [FromQuery] string? sortBy, 
-            [FromQuery] string? sortDirection)
+            [FromQuery] string? sortDirection,
+            [FromQuery] int? pageNumber,
+            [FromQuery] int? pageSize)
         {
             var categories = await categoryRepository.GetAllAsync(query, sortBy, sortDirection);
 

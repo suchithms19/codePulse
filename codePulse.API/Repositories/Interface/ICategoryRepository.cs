@@ -7,7 +7,10 @@ namespace codePulse.API.Repositories.Interface
         Task<Category> CreateAsync(Category category);
         Task<IEnumerable<Category>> GetAllAsync(string? query=null, 
             string? sortBy=null,
-            string? sortDirection=null);
+            string? sortDirection=null,
+            int? pageNumber = 1,
+            int? pageSize = 100
+);
 
         Task<Category?> GetCategoryAsync(Guid id);
 
